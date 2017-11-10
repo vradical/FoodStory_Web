@@ -26,7 +26,7 @@ public class Hawker {
 	private boolean store;
 	private boolean delivery;
 
-	@OneToMany(cascade = {CascadeType.ALL}, mappedBy = "dish")
+	@OneToMany(cascade = {CascadeType.ALL}, mappedBy = "hawker")
 	private Set<Dish> dishList;
 	
 	public Hawker() {

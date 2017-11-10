@@ -25,8 +25,8 @@ public class Dish {
 	@ManyToOne
 	private Hawker hawker;
 	
-	@ManyToMany(cascade = {CascadeType.ALL}, mappedBy = "dishList")
-	private Set<Order> orderList;
+	@ManyToMany(cascade = {CascadeType.ALL}, mappedBy = "dishes")
+	private Set<OrderInfo> orders;
 	
 	public Dish() {
 		
@@ -96,12 +96,12 @@ public class Dish {
 		this.hawker = hawker;
 	}
 
-	public Set<Order> getOrderList() {
-		return orderList;
+	public Set<OrderInfo> getOrders() {
+		return orders;
 	}
 
-	public void setOrderList(Set<Order> orderList) {
-		this.orderList = orderList;
+	public void setOrders(Set<OrderInfo> orders) {
+		this.orders = orders;
 	}
 	
 }

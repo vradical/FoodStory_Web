@@ -2,9 +2,9 @@ package com.foodstory.repositories;
 
 import org.springframework.data.repository.CrudRepository;
 
-import com.foodstory.domains.Order;
+import com.foodstory.domains.OrderInfo;
 
 
-public interface OrderRepository extends CrudRepository<Order, Long>{
+public interface OrderRepository extends CrudRepository<OrderInfo, Long>{
 
 }

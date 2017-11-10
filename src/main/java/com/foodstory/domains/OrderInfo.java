@@ -1,6 +1,6 @@
 package com.foodstory.domains;
 
-import java.sql.Timestamp;
+import java.util.Date;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -13,12 +13,12 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 
 @Entity
-public class Order {
+public class OrderInfo {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
-	private Timestamp dateTime;
+	private Date dateTime;
 	private double totalPrice;
 	
 	@ManyToOne
@@ -26,13 +26,12 @@ public class Order {
 	
 	@ManyToMany(cascade = CascadeType.ALL)
 	@JoinTable(name = "order_dish")
-	private Set<Dish> dishList;
+	private Set<Dish> dishes;
 	
-	public Order() {
-		
+	public OrderInfo() {
 	}
 	
-	public Order(Timestamp dateTime, double totalPrice) {
+	public OrderInfo(Date dateTime, double totalPrice) {
 		this.dateTime = dateTime;
 		this.totalPrice = totalPrice;
 	}
@@ -45,11 +44,11 @@ public class Order {
 		this.id = id;
 	}
 
-	public Timestamp getDateTime() {
+	public Date getDateTime() {
 		return dateTime;
 	}
 
-	public void setDateTime(Timestamp dateTime) {
+	public void setDateTime(Date dateTime) {
 		this.dateTime = dateTime;
 	}
 
@@ -69,13 +68,12 @@ public class Order {
 		this.user = user;
 	}
 
-	public Set<Dish> getDishList() {
-		return dishList;
+	public Set<Dish> getDishes() {
+		return dishes;
 	}
 
-	public void setDishList(Set<Dish> dishList) {
-		this.dishList = dishList;
+	public void setDishes(Set<Dish> dishes) {
+		this.dishes = dishes;
 	}
-	
 	
 }

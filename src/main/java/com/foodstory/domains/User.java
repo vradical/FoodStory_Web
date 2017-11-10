@@ -22,7 +22,7 @@ public class User {
 	private String fbLogin;
 	
 	@OneToMany(cascade = {CascadeType.ALL}, mappedBy = "user")
-	private Set<Order> orderList;
+	private Set<OrderInfo> orderList;
 	
 	public User() {
 		
@@ -78,11 +78,11 @@ public class User {
 	}
 
 
-	public Set<Order> getOrderList() {
+	public Set<OrderInfo> getOrderList() {
 		return orderList;
 	}
 
-	public void setOrderList(Set<Order> orderList) {
+	public void setOrderList(Set<OrderInfo> orderList) {
 		this.orderList = orderList;
 	}
 	
