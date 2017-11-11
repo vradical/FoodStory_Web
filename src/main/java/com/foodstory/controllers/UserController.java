@@ -18,10 +18,20 @@ public class UserController {
 	private UserRepository userRepository;
 
 	@GetMapping(path = "/login")
-	public @ResponseBody String register(@RequestParam String name, @RequestParam String email, @RequestParam String phone) {
-
-		//contactRepository.save(n);
-		return "Saved";
+	public @ResponseBody String register(@RequestParam String fbLogin, @RequestParam String name, @RequestParam String email) {
+		
+		User user = userRepository.findByfbLogin(fbLogin);
+		
+		if(user == null) {
+			User newUser = new User();
+			newUser.setFbLogin(fbLogin);
+			newUser.setEmail(email);
+			newUser.setName(name);
+			userRepository.save(newUser);
+			
+			return "Saved";
+		}
+		return "Logged In";
 	}
 
 	@GetMapping(path = "/all")
