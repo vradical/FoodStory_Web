@@ -1,5 +1,9 @@
 package com.foodstory.controllers;
 
+import javax.ws.rs.core.Response;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,7 +22,7 @@ public class UserController {
 	private UserRepository userRepository;
 
 	@GetMapping(path = "/login")
-	public @ResponseBody String register(@RequestParam String fbLogin, @RequestParam String name, @RequestParam String email) {
+	public @ResponseBody Response register(@RequestParam String fbLogin, @RequestParam String name, @RequestParam String email) {
 		
 		User user = userRepository.findByfbLogin(fbLogin);
 		
@@ -29,9 +33,17 @@ public class UserController {
 			newUser.setName(name);
 			userRepository.save(newUser);
 			
-			return "Saved";
+	        JSONObject obj = new JSONObject();
+	        try {
+				obj.put("Status", "NewUser" );
+			} catch (JSONException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+			return Response.ok(obj).build();
 		}
-		return "Logged In";
+		return Response.ok().build();
 	}
 
 	@GetMapping(path = "/all")
