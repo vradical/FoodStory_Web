@@ -3,12 +3,15 @@ package com.foodstory.domains;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 public class Dish {
@@ -20,11 +23,14 @@ public class Dish {
 	private String price;
 	private String description;
 	private String image;
+	@Column(nullable = false, columnDefinition = "TINYINT", length = 1)
 	private boolean signature;
 	
+	@JsonIgnore
 	@ManyToOne
 	private Hawker hawker;
 	
+	@JsonIgnore
 	@ManyToMany(cascade = {CascadeType.ALL}, mappedBy = "dishes")
 	private Set<OrderInfo> orders;
 	

@@ -3,10 +3,12 @@ package com.foodstory.domains;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Lob;
 import javax.persistence.OneToMany;
 
 @Entity
@@ -22,8 +24,12 @@ public class Hawker {
 	private double addLong;
 	private String website;
 	private String description;
+	@Lob
+	private String story;
 	private String coverPhoto;
+	@Column(nullable = false, columnDefinition = "TINYINT", length = 1)
 	private boolean store;
+	@Column(nullable = false, columnDefinition = "TINYINT", length = 1)
 	private boolean delivery;
 
 	@OneToMany(cascade = {CascadeType.ALL}, mappedBy = "hawker")
@@ -34,7 +40,7 @@ public class Hawker {
 	}
 	
 	public Hawker(String name, String email, String phone, double addLat, double addLong, String website,
-			String description, String coverPhoto, boolean store, boolean delivery) {
+			String description, String coverPhoto, boolean store, boolean delivery, String story) {
 		this.name = name;
 		this.email = email;
 		this.phone = phone;
@@ -45,6 +51,7 @@ public class Hawker {
 		this.coverPhoto = coverPhoto;
 		this.store = store;
 		this.delivery = delivery;
+		this.story = story;
 	}
 
 	public long getId() {
@@ -141,6 +148,14 @@ public class Hawker {
 
 	public void setDishList(Set<Dish> dishList) {
 		this.dishList = dishList;
+	}
+
+	public String getStory() {
+		return story;
+	}
+
+	public void setStory(String story) {
+		this.story = story;
 	}
 	
 }

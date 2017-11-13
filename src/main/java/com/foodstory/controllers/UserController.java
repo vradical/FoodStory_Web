@@ -1,7 +1,5 @@
 package com.foodstory.controllers;
 
-import javax.ws.rs.core.Response;
-
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,9 +20,11 @@ public class UserController {
 	private UserRepository userRepository;
 
 	@GetMapping(path = "/login")
-	public @ResponseBody Response register(@RequestParam String fbLogin, @RequestParam String name, @RequestParam String email) {
+	public @ResponseBody String register(@RequestParam String fbLogin, @RequestParam String name, @RequestParam String email) {
 		
 		User user = userRepository.findByfbLogin(fbLogin);
+		
+        JSONObject obj = new JSONObject();
 		
 		if(user == null) {
 			User newUser = new User();
@@ -33,17 +33,28 @@ public class UserController {
 			newUser.setName(name);
 			userRepository.save(newUser);
 			
-	        JSONObject obj = new JSONObject();
 	        try {
-				obj.put("Status", "NewUser" );
+				obj.put("newUser", "true" );
+				obj.put("userID", String.valueOf(userRepository.findByfbLogin(fbLogin).getId()));
+			} catch (JSONException e) {
+				System.out.println(e);
+			}
+			
+			return obj.toString();
+			
+		}else {
+			
+	        try {
+				obj.put("newUser", "false" );
+				obj.put("userID", String.valueOf(userRepository.findByfbLogin(fbLogin).getId()));
 			} catch (JSONException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			
-			return Response.ok(obj).build();
+	        
+			return obj.toString();
 		}
-		return Response.ok().build();
+
 	}
 
 	@GetMapping(path = "/all")
